@@ -71,32 +71,12 @@ body {
     position:absolute;
 }
 
-#pacsprite {
-    top: 0px;
-    left: 0px;
-}
-
-#badsprite {
-    top: 200px;
-    left: 0px;
-}
-
 .cell-left {
     overflow: hidden;
     grid-row: 1/7;
     background-image: radial-gradient(white 10%, transparent 0);
     background-size: 11vmin 11vmin;
     position: relative;
-}
-
-#pacsprite2 {
-    top: 0px;
-    left: 0px;
-}
-
-#badsprite2 {
-    top: 0px;
-    left: 200px;
 }
 
 .cell-right {
