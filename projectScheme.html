@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pl-PL">
+
+<head>
+    <title>ProjectScheme</title>
+    <link rel="stylesheet" href="schemeStyle.css">
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <noscript>Your browser does not support JavaScript!</noscript>
+    <div class="wrapper">
+        <div class="cell-top">
+            <img class="profile-picture" src="Pacman.png" alt="Pacman Icon">
+            <button class="login-button">Log In</button>
+        </div>
+        <div class="cell-left">
+            <div class="sprite-picture" alt="Pacman Icon" id="badsprite"></div>
+            <div class="sprite-picture" alt="Pacman Icon" id="pacsprite"></div>
+        </div>
+        <div class="cell-right">
+            <div class="sprite-picture" alt="Pacman Icon" id="badsprite2"></div>
+            <div class="sprite-picture" alt="Pacman Icon" id="pacsprite2"></div>
+        </div>
+        <div class="cell-bottom"></div>
+        <div class="cell-title">
+            <div class="title-text2">Pac-man</div>
+            <div class="title-text3">Pac-man</div>
+        </div>
+
+        <div class="cell-list">
+            <ul>
+                <li><button class="main-menu-button">Quick Game</button></li>
+                <li><button class="main-menu-button">Search Market</button></li>
+                <li><button class="main-menu-button">Map Maker</button></li>
+                <li><button class="main-menu-button">Library</button></li>
+                <li><button class="main-menu-button">Statistics</button></li>
+            </ul>
+        </div>
+
+    </div>
+    <script>
+        window.onload = function() {
+            myMove('badsprite',0,0,2,8);
+            myMove('pacsprite',200,0,4,3);
+            myMove('badsprite2',200,1,8,4);
+            myMove('pacsprite2',0,1,4,3);
+        }
+        function myMove(who, startingPos, direction, tileX, tileY) {
+            // Texture atlas setup
+            let src = 'sprites.png';
+            let tileWidth = 24;
+            let tileHeight = 24;
+            let basePacX = 0 * tileWidth;
+            let basePacY = 7 * tileHeight;
+
+            let graphicDelta = 2; // distance between primary and secondary graphic
+            if (who == 'badsprite' || who == 'badsprite2') {
+                graphicDelta = 1;
+            }
+            let x = (tileX * tileWidth); // tile offset x position (absolute)
+            let y = (tileY * tileHeight); // tile offset y position (absolute)
+
+            let id = null;
+            const elem = document.getElementById(who);
+
+            elem.style.width = tileWidth + 'px';
+            elem.style.height = tileHeight + 'px';
+            elem.style.backgroundImage = "url('" + src + "')";
+            elem.style.backgroundPosition = '-' + x + 'px -' + y + 'px';
+            if (who == 'pacsprite') {
+                elem.style.transform = 'rotate(90deg)';
+            }
+
+            // Position setup
+            let pos = startingPos;
+            let way = direction;
+            let maxposx = [200,300,100,50,180,270,70,60];
+            let maxposy = [720,600,400,200,100,50,600,80,400];
+            if(who == 'badsprite2' || who == 'pacsprite2') {
+                maxposx = [300,50,150,90,200,40,200,350];
+                maxposy = [200,720,200,370,100,400,50,80,700];
+            }
+            let maxposxiter = 0;
+            let maxposyiter = 0;
+            clearInterval(id);
+            id = setInterval(frame, 5);
+
+            function frame() {
+                if (who == 'badsprite' || who == 'badsprite2') {
+                    if (pos % 25 == 0) {
+                        elem.style.backgroundPosition = '-' + (x + tileWidth * graphicDelta) + 'px -' + y + 'px';
+                    } else if (pos % 25 == 12) {
+                        elem.style.backgroundPosition = '-' + x + 'px -' + y + 'px';
+                    }
+                } else {
+                    if (pos % 50 == 0) {
+                        elem.style.backgroundPosition = '-' + x + 'px -' + y + 'px';
+                    } else if (pos % 50 == 12 || pos % 100 == 37) {
+                        elem.style.backgroundPosition = '-' + (x + tileWidth * graphicDelta) + 'px -' + y + 'px';
+                    } else if (pos % 50 == 25) {
+                        elem.style.backgroundPosition = '-' + basePacX + 'px -' + basePacY + 'px';
+                    }
+                }
+
+                if (pos == maxposx[maxposxiter] && (way == 1 || way == 3)) {
+                    if (way == 3) {maxposxiter = (maxposxiter + 1) % maxposx.length;}
+                    if (direction == 0) {
+                        way = (way + 1) % 4;
+                    } else {
+                        way = (way - 1);
+                        if (way == -1) (way = 3);
+                    }
+
+                    pos = 0;
+                    if (who == 'pacsprite' || who == 'pacsprite2') {
+                        if (way == 0) {
+                            elem.style.transform = 'rotate(90deg)';
+                        } else {
+                            elem.style.transform = 'rotate(270deg)';
+                        }
+                    } else if (who == 'badsprite') {
+                        if (way == 2) {
+                            x = tileWidth * 6;
+                        } else {
+                            x = tileWidth * 2;
+                        }
+                    }
+
+                } else if (pos == maxposy[maxposyiter] && (way == 0 || way == 2)) {
+                    if (way == 2) {maxposyiter = (maxposyiter + 1) % maxposy.length;}
+                    if (direction == 0) {
+                        way = (way + 1) % 4;
+                    } else {
+                        way = (way - 1);
+                        if (way == -1) (way = 3);
+                    }
+
+                    pos = 0;
+                    if (who == 'pacsprite' || who == 'pacsprite2') {
+                        if (way == 3) {
+                            elem.style.transform = 'rotate(180deg)';
+                        } else {
+                            elem.style.transform = 'rotate(0deg)';
+                        }
+                    } else if (who == 'badsprite') {
+                        if (way == 3) {
+                            x = tileWidth * 4;
+                        } else {
+                            x = tileWidth * 0;
+                        }
+                    }
+
+                } else {
+                    pos++;
+                    if (way == 0) {
+                        elem.style.top = pos + "px";
+                    } else if (way == 1) {
+                        elem.style.left = pos + "px";
+                    } else if (way == 2) {
+                        elem.style.top = maxposy[maxposyiter] - pos + "px";
+                    } else if (way == 3) {
+                        elem.style.left = maxposx[maxposxiter] - pos + "px";
+                    }
+
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
