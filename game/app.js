@@ -10,6 +10,35 @@ document.addEventListener('DOMContentLoaded', () => {
         return boardSize * x + y
     }
 
+    document.getElementById("openFile").onclick = OpenFile;
+
+    function OpenFile()
+    {
+        document.getElementById('input').click()
+        document.getElementById('input').onchange=function()
+        {
+            var file = document.getElementById('input').files[0]
+            var reader = new FileReader();
+                reader.readAsText(file, "UTF-8");
+                reader.onload = function (evt) {
+                    var plik=JSON.parse(evt.target.result)
+                    for(let i = 0; i < 32; i++)
+                    {
+                        for(let i2 = 0; i2<32;i2++)
+                        {
+                            layout.push(plik[i][i2])
+                        }
+                    }
+                    //layout = file.flat()
+                    //generateMap(boardSize)
+                    run_game()
+                }
+            
+        }
+    }
+
+    function run_game()
+    {
     /*function generateMap(size) {
 
 
@@ -64,19 +93,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }
     generateMap(boardSize)*/
-
-    OpenFile()
-    {
-        var that=this
-        document.getElementById('input').click()
-        document.getElementById('input').onchange=function()
-        {
-            var file = document.getElementById('input').files[0]
-        }
-
-        layout = file
-    }
-
+    
+    //OpenFile()
+    
 
 
     let maxScore = 0;
@@ -166,8 +185,8 @@ document.addEventListener('DOMContentLoaded', () => {
             squares.push(square)
         }
     }
+    
     createBoard()
-
     // wydobyc z layout: maxscore, startindex duchow
     for (let i = 0; i < boardSize * boardSize; i++) {
         if (squares[i].classList.contains('dot'))
@@ -370,31 +389,33 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         move(/*pacmanCurrentIndex, boardSize*/) {
-            const distance = Math.sqrt(
-                Math.pow(this.currentIndex % boardSize - pacmanCurrentIndex % boardSize, 2) +
-                Math.pow(Math.floor(this.currentIndex / boardSize) - Math.floor(pacmanCurrentIndex / boardSize), 2)
-            );
+            const pacmanRowIndex = Math.floor(pacmanCurrentIndex / boardSize);
+            const pacmanColIndex = pacmanCurrentIndex % boardSize;
 
             let direction;
-            if (this.frightened) { // scared mode
-                if (this.currentIndex / boardSize > boardSize - (this.currentIndex % boardSize) && !squares[this.currentIndex + boardSize].classList.contains('wall')) { // move up
-                    direction = boardSize;
-                } else { // move right
-                    direction = 1;
-                }
-            } else { //chase mode
-                if (pacmanCurrentIndex < this.currentIndex && pacmanCurrentIndex > this.currentIndex - boardSize && !squares[this.currentIndex - 1].classList.contains('wall')) {
-                    direction = -1;
-                } else if (pacmanCurrentIndex > this.currentIndex && pacmanCurrentIndex < this.currentIndex - boardSize && !squares[this.currentIndex + 1].classList.contains('wall')) {
-                    direction = 1;
-                } else if (pacmanCurrentIndex < this.currentIndex && !squares[this.currentIndex - boardSize].classList.contains('wall')) {
-                    direction = -boardSize;
-                } else if (pacmanCurrentIndex > this.currentIndex && !squares[this.currentIndex + boardSize].classList.contains('wall')) {
-                    direction = boardSize;
-                } else {
-                    direction = null;
+            let minDistance = Infinity;
+
+            const possibleDirections = [
+                { dir: -1, check: () => !squares[this.currentIndex - 1].classList.contains('wall') }, // Left
+                { dir: 1, check: () => !squares[this.currentIndex + 1].classList.contains('wall') }, // Right
+                { dir: -boardSize, check: () => !squares[this.currentIndex - boardSize].classList.contains('wall') }, // Up
+                { dir: boardSize, check: () => !squares[this.currentIndex + boardSize].classList.contains('wall') }, // Down
+            ];
+
+            for (const possibleDirection of possibleDirections) {
+                if (possibleDirection.check()) {
+                    const newIndex = this.currentIndex + possibleDirection.dir;
+                    const newRow = Math.floor(newIndex / boardSize);
+                    const newCol = newIndex % boardSize;
+                    const newDistance = Math.pow(newCol - pacmanColIndex, 2) + Math.pow(newRow - pacmanRowIndex, 2)
+
+                    if (newDistance < minDistance) {
+                        minDistance = newDistance;
+                        direction = possibleDirection.dir;
+                    }
                 }
             }
+
             return direction;
         }
     }
@@ -591,5 +612,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     ghosts.forEach(ghost => moveGhost(ghost))
+}
 
 })

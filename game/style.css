@@ -23,8 +23,9 @@ h3 {
 
 .dot {
     /*background-color: green;*/
-    border: 3px solid white;
+    /*border: 3px solid white;*/
     box-sizing: border-box;
+    background-repeat: no-repeat;
 }
 
 .ghost-lair {
@@ -41,7 +42,7 @@ h3 {
 }
 
 .Blinky {
-    background-color: #FF0000;
+    /*background-color: #FF0000;*/
 }
 
 .Pinky {
@@ -63,4 +64,7 @@ h3 {
 
 .frightened-ghost {
     background-color: #2EFEF7;
+}
+body{
+    background-color: black;
 }
