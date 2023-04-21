@@ -10,22 +10,22 @@
 
 @font-face {
     font-family: 'Crackman';
-    src: url(fonts/Crackman.otf);
+    src: url(../fonts/Crackman.otf);
 }
 
 @font-face {
     font-family: 'CrackmanFront';
-    src: url(fonts/Crackman\ Front.otf);
+    src: url(../fonts/Crackman\ Front.otf);
 }
 
 @font-face {
     font-family: 'CrackmanBack';
-    src: url(fonts/Crackman\ Back.otf);
+    src: url(../fonts/Crackman\ Back.otf);
 }
 
 @font-face {
     font-family: 'Pixel';
-    src: url(fonts/Pixel.ttf);
+    src: url(../fonts/Pixel.ttf);
 }
 
 body {
