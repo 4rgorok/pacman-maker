@@ -1,0 +1,140 @@
+:root {
+    --title-orange:#e8a21f;
+    --border-color: #3146b0;
+    --button-color: #566169;
+    --title-border-color: rgb(208, 70, 55);
+    --text-color2: rgb(230, 230, 63);
+    --text-color1: rgb(30, 30, 4);
+    --background-dark: rgb(2, 10, 19);
+}
+
+@font-face {
+    font-family: 'Crackman';
+    src: url(../fonts/Crackman.otf);
+}
+
+@font-face {
+    font-family: 'CrackmanFront';
+    src: url(../fonts/Crackman\ Front.otf);
+}
+
+@font-face {
+    font-family: 'CrackmanBack';
+    src: url(../fonts/Crackman\ Back.otf);
+}
+
+@font-face {
+    font-family: 'Pixel';
+    src: url(../fonts/Pixel.ttf);
+}
+
+body {
+    background-color: var(--background-dark);
+    border-radius: 40px;
+    border-color: var(--border-color);
+    border-width: 40px;
+    border-style: double ;
+    margin: 3%;
+}
+
+.wrapper {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: 1fr 2fr 3fr 1fr;
+    grid-column-gap: 9px;
+    grid-row-gap: 9px;
+    text-align: center;
+}
+
+[class^='cell'] {
+    min-height: 30px;
+}
+
+.cell-top {
+    padding-top: 8%;
+    grid-column: 2/3;
+}
+
+.login-button{
+    color: var(--text-color2);
+    font-family: 'Pixel';
+    font-size: 20px;
+    background-color: transparent;
+}
+
+.profile-picture {
+    max-width: 20px;
+    max-height: 20px;
+}
+
+.sprite-picture {
+    position:absolute;
+}
+
+.cell-left {
+    overflow: hidden;
+    grid-row: 1/7;
+    background-image: radial-gradient(white 10%, transparent 0);
+    background-size: 11vmin 11vmin;
+    position: relative;
+}
+
+.cell-right {
+    overflow: hidden;
+    grid-row: 1/7;
+    background-image: radial-gradient(white 10%, transparent 0);
+    background-size: 11vmin 11vmin;
+    position: relative;
+}
+
+.cell-bottom {
+    grid-column: 2/3;
+    display: none;
+}
+
+.cell-title {
+    grid-column: 2/3;
+    grid-row: 2/3;
+    display:grid;
+    grid-template-columns: 2fr;
+    grid-template-rows: 1fr;
+    font-size:8vw;
+    
+    background-color: var(--title-orange);
+    border-style: outset;
+    border-radius: 30px;
+    border-color: var(--title-border-color);
+    border-width: 10px;
+}
+
+.title-text2{
+    grid-row: 1/1;
+    grid-column: 1/1;
+    font-family: 'CrackmanBack';
+    color: var(--text-color1);
+}
+
+.title-text3{
+    grid-row: 1/1;
+    grid-column: 1/1;
+    font-family: 'CrackmanFront';
+    color: var(--text-color2);
+}
+
+.cell-list{
+    grid-column: 2/3;
+    grid-row: 3/6;
+}
+
+.main-menu-button{
+    border-radius: 20px;
+    font-family: 'Pixel';
+    font-size: 2vw;
+    background-color: var(--button-color);
+    color: var(--text-color2);
+    width: 70%;
+}
+
+ul {
+    list-style: none;
+}
