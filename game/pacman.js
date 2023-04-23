@@ -38,6 +38,7 @@ class Pacman {
     {
         this.draw()
         this.check_dots()
+        this.check_ghost_collision()
         if(this.check_colision())
         {
             this.velocity.x = 0
@@ -80,7 +81,7 @@ class Pacman {
         if(this.velocity.y > 0) return Direction.down
         if(this.velocity.y < 0) return Direction.up
 
-        return -1 // not moving
+        return Direction.stationary
     }
 
     
@@ -89,7 +90,7 @@ class Pacman {
         if(!(this.position.x % SPRITE_SIZE == 0 && this.position.y % SPRITE_SIZE == 0))return false
         var posX = this.position.x / SPRITE_SIZE
         var posY = this.position.y / SPRITE_SIZE
-        
+
         var direction = this.get_direction()
 
         switch (direction){
@@ -149,8 +150,37 @@ class Pacman {
             backgrund_ctx.fillRect(posX * SPRITE_SIZE, posY * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE)
             current_map[posY][posX] = Sprites.empty
             this.dots_eaten++
+            if(this.dots_eaten == number_of_dots)
+            {
+                game_end = true
+                if(alert("YOU WON!!!")){}
+                else    window.location.reload();
+            }
             console.log(this.dots_eaten)
         }
+    }
+
+    check_ghost_collision()
+    {
+        var pacX = parseInt(this.position.x / SPRITE_SIZE)
+        var pacY = parseInt(this.position.y / SPRITE_SIZE)
+        ghosts.forEach(ghost => {
+            var ghX = parseInt(ghost.position.x / SPRITE_SIZE)
+            var ghY = parseInt(ghost.position.y / SPRITE_SIZE)
+            
+            if(pacX == ghX && pacY == ghY)
+            {
+                game_end = true
+                this.death_animation()
+                if(alert("YOU LOST!!!")){}
+                else    window.location.reload();
+            }
+        });
+    }
+
+    death_animation()
+    {
+        //TODO
     }
 }
 

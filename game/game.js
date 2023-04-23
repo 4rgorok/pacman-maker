@@ -1,6 +1,8 @@
-let canvas, c, pacman
+let canvas, c, pacman, ghosts
 let backgrund, backgrund_ctx
 let current_map
+let game_end = false
+let number_of_dots = 0
 
 let img = new Image();
 img.src = './sprites_24.png';
@@ -35,17 +37,35 @@ img.onload = function() {
         position: {x : 240,y : 240},
         velocity: {x : 0, y : 0}
     })
+
+    var ghost1 = new Ghost({
+        position: {x : 480,y : 240},
+        velocity: {x : 0, y : GHOST_SPEED},
+        type: Ghost_type.orange
+    })
+
+    var ghost2 = new Ghost({
+        position: {x : 696,y : 552},
+        velocity: {x : 0, y : GHOST_SPEED},
+        type: Ghost_type.red
+    })
+    ghosts = [ghost1, ghost2]
+
     draw_background()
     animate()
 };
 
 function animate()
 {
-    window.requestAnimationFrame(animate)
-    c.globalAlpha = 0;
-    c.clearRect(0, 0, canvas.width, canvas.height)
-    c.globalAlpha = 1;
-    pacman.update()
+    if(!game_end)
+    {
+        window.requestAnimationFrame(animate)
+        c.globalAlpha = 0;
+        c.clearRect(0, 0, canvas.width, canvas.height)
+        c.globalAlpha = 1;
+        pacman.update()
+        ghosts.forEach(ghost => ghost.update());
+    }
 }
 
 function draw_background()
@@ -56,8 +76,9 @@ function draw_background()
         {
             var posX = x * SPRITE_SIZE
             var posY = y * SPRITE_SIZE
-            var sprite = get_sprite(current_map[x][y])
-            backgrund_ctx.drawImage(img, sprite.x * SPRITE_SIZE, sprite.y * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE, posY, posX, SPRITE_SIZE, SPRITE_SIZE)
+            if(current_map[y][x] == Sprites.pac_dots) number_of_dots++
+            var sprite = get_sprite(current_map[y][x])
+            backgrund_ctx.drawImage(img, sprite.x * SPRITE_SIZE, sprite.y * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE, posX, posY, SPRITE_SIZE, SPRITE_SIZE)
         }
     }
 }
