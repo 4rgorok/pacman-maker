@@ -5,9 +5,16 @@ let game_end = false
 let number_of_dots = 0
 
 let img = new Image();
-img.src = './sprites_24.png';
-img.onload = function() {
-    console.log()
+
+window.addEventListener("load", (event) => {
+    img.src = './sprites_24.png';
+    img.onload = function() {
+        init()
+    };
+});
+
+function init()
+{
     var scale_factor = (window.innerHeight * 0.9) / (SPRITE_SIZE * NUMBER_OF_TILES)
     var left_shift = (window.innerWidth - SPRITE_SIZE * NUMBER_OF_TILES)/2
     console.log(window.innerWidth, left_shift)
@@ -53,7 +60,7 @@ img.onload = function() {
 
     draw_background()
     animate()
-};
+}
 
 function animate()
 {
