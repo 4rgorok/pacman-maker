@@ -1,6 +1,7 @@
 class Ghost {
     constructor({position, velocity, type}){
         this.position = position
+        this.original_position = Object.assign({},position)
         this.velocity = velocity
         this.ghost_type = type
         this.animation_frame = 0
@@ -37,7 +38,7 @@ class Ghost {
     {
         switch (this.ghost_type){
             case Ghost_type.red:
-                this.ai = new Pac_chase({avaiable_space: this.avaiable_space})
+                this.ai = new Pac_chase({avaiable_space: this.avaiable_space, original_position: this.original_position})
                 break;
             case Ghost_type.orange:
                 this.ai = new Random_chase({avaiable_space: this.avaiable_space})

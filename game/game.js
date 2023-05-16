@@ -4,6 +4,8 @@ let current_map
 let game_end = false
 let number_of_dots = 0
 
+let game_frame = 0
+let game_second = 1
 let img = new Image();
 
 window.addEventListener("load", (event) => {
@@ -56,7 +58,19 @@ function init()
         velocity: {x : 0, y : GHOST_SPEED},
         type: Ghost_type.red
     })
-    ghosts = [ghost1, ghost2]
+
+    var ghost3 = new Ghost({
+        position: {x : 696,y : 552},
+        velocity: {x : 0, y : GHOST_SPEED},
+        type: Ghost_type.red
+    })
+
+    var ghost4 = new Ghost({
+        position: {x : 48,y : 552},
+        velocity: {x : 0, y : GHOST_SPEED},
+        type: Ghost_type.red
+    })
+    ghosts = [ghost1, ghost2, ghost4]
 
     draw_background()
     animate()
@@ -72,6 +86,8 @@ function animate()
         c.globalAlpha = 1;
         pacman.update()
         ghosts.forEach(ghost => ghost.update());
+        game_frame++
+        if(game_frame%60==0)game_second++
     }
 }
 

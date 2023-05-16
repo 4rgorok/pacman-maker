@@ -94,16 +94,35 @@ class Random_chase extends AI{
 }
 
 class Pac_chase extends AI{
-    constructor({avaiable_space}){
+    constructor({avaiable_space, original_position}){
         super({avaiable_space})
+        this.original_position = original_position
+        this.scatter_mode = false
     }
 
     next_move(posX, posY)
     {
+        if(game_second%15 == 0 && !this.scatter_mode)
+        {
+            console.log("xdddd")
+            this.scatter_mode = true 
+            this.directions = []
+            var distance = this.bfs(posX, posY)
+            this.get_path(parseInt(this.original_position.x / SPRITE_SIZE), parseInt(this.original_position.y / SPRITE_SIZE), distance)
+            if(this.directions.length == 0) return Direction.stationary
+            return this.directions.pop()
+        }
+        if(this.scatter_mode)
+        {
+            if(this.directions.length != 0)
+            {
+                return this.directions.pop()
+            }
+            this.scatter_mode = false
+        }
         this.directions = []
         var distance = this.bfs(posX, posY)
         this.get_path(parseInt(pacman.position.x / SPRITE_SIZE), parseInt(pacman.position.y / SPRITE_SIZE), distance)
-        
         if(this.directions.length == 0) return Direction.stationary
         return this.directions.pop()
     }
