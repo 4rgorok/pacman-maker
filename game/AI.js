@@ -1,8 +1,11 @@
 
 class AI{
-    constructor({avaiable_space}){
+    constructor({avaiable_space, starting_position}){
         this.avaiable_space = avaiable_space
+        this.starting_position = starting_position
         this.directions = []
+        this.mode = Ghost_mode.SLEEP
+        this.timer = 0
     }
 
     bfs(x, y)
@@ -70,12 +73,13 @@ class AI{
 }
 
 class Random_chase extends AI{
-    constructor({avaiable_space}){
-        super({avaiable_space})
+    constructor({avaiable_space, starting_position}){
+        super({avaiable_space, starting_position})
     }
 
     next_move(posX, posY)
     {
+        this.timer++;
         if(this.directions.length == 0){
             var x = Math.floor(Math.random() * NUMBER_OF_TILES)
             var y = Math.floor(Math.random() * NUMBER_OF_TILES)
@@ -94,17 +98,30 @@ class Random_chase extends AI{
 }
 
 class Pac_chase extends AI{
-    constructor({avaiable_space}){
-        super({avaiable_space})
+    constructor({avaiable_space, starting_position}){
+        super({avaiable_space, starting_position})
+        console.log("siema" + starting_position.x / SPRITE_SIZE +  " " + starting_position.y / SPRITE_SIZE)
+        this.mode = Ghost_mode.CHASE
     }
 
     next_move(posX, posY)
     {
+        this.timer = (this.timer + 1) % (100)
+        if (this.timer === 0) {
+            this.mode = (this.mode + 1) % 2
+        }
         this.directions = []
         var distance = this.bfs(posX, posY)
-        this.get_path(parseInt(pacman.position.x / SPRITE_SIZE), parseInt(pacman.position.y / SPRITE_SIZE), distance)
-        
+        if(this.mode === Ghost_mode.CHASE) {
+            this.get_path(parseInt(pacman.position.x / SPRITE_SIZE), parseInt(pacman.position.y / SPRITE_SIZE), distance)
+            
+        } else if(this.mode === Ghost_mode.SCATTER) {
+            this.get_path(parseInt(this.starting_position.x / SPRITE_SIZE), parseInt(this.starting_position.y / SPRITE_SIZE), distance)
+
+        }
+
         if(this.directions.length == 0) return Direction.stationary
         return this.directions.pop()
+
     }
 }

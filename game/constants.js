@@ -45,3 +45,10 @@ const Ghost_type = {
     orange: 2,
     blue: 3
 }
+
+const Ghost_mode = {
+    CHASE: 0,
+    SCATTER: 1,
+    FRIGHTENED: 2,
+    SLEEP: 3
+}

@@ -156,7 +156,7 @@ class Pacman {
                 if(alert("YOU WON!!!")){}
                 else    window.location.reload();
             }
-            console.log(this.dots_eaten)
+            
         }
     }
 

@@ -37,10 +37,10 @@ class Ghost {
     {
         switch (this.ghost_type){
             case Ghost_type.red:
-                this.ai = new Pac_chase({avaiable_space: this.avaiable_space})
+                this.ai = new Pac_chase({avaiable_space: this.avaiable_space, starting_position: this.position})
                 break;
             case Ghost_type.orange:
-                this.ai = new Random_chase({avaiable_space: this.avaiable_space})
+                this.ai = new Random_chase({avaiable_space: this.avaiable_space, starting_position: this.position})
         }
     }
 
