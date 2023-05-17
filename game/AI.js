@@ -3,8 +3,6 @@ class AI {
     constructor({ available_space: available_space }) {
         this.available_space = available_space
         this.directions = []
-        this.mode = Ghost_mode.SLEEP
-        this.timer = 0
     }
 
     bfs(x, y) {
