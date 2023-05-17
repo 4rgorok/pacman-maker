@@ -3,6 +3,8 @@ class AI {
     constructor({ available_space: available_space }) {
         this.available_space = available_space
         this.directions = []
+        this.mode = Ghost_mode.SLEEP
+        this.timer = 0
     }
 
     bfs(x, y) {
@@ -188,5 +190,6 @@ class Foreshadow_chase extends AI {
         this.get_path(position.x, position.y, distance)
         if (this.directions.length == 0) return Direction.stationary
         return this.directions.pop()
+
     }
 }
