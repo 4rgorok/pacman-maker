@@ -101,9 +101,13 @@ class AI {
 class Random_chase extends AI {
     constructor({ available_space }) {
         super({ available_space })
+        this.mode = Ghost_mode.CHASE
     }
 
     next_move(posX, posY) {
+        if(this.mode === Ghost_mode.FRIGHTENED) {
+            //TODO
+        }
         if (this.directions.length == 0) {
             var x = Math.floor(Math.random() * NUMBER_OF_TILES)
             var y = Math.floor(Math.random() * NUMBER_OF_TILES)
@@ -124,23 +128,26 @@ class Pac_chase extends AI {
     constructor({ available_space, original_position }) {
         super({ available_space })
         this.original_position = original_position
-        this.scatter_mode = false
+        this.mode = Ghost_mode.CHASE
     }
 
     next_move(posX, posY) {
-        if (game_second % 15 == 0 && !this.scatter_mode) {
-            this.scatter_mode = true
+        if(this.mode === Ghost_mode.FRIGHTENED) {
+            //TODO
+        }
+        if (game_second % 15 === 0 && this.mode === Ghost_mode.CHASE) {
+            this.mode = Ghost_mode.SCATTER
             this.directions = []
             var distance = this.bfs(posX, posY)
             this.get_path(parseInt(this.original_position.x / SPRITE_SIZE), parseInt(this.original_position.y / SPRITE_SIZE), distance)
             if (this.directions.length == 0) return Direction.stationary
             return this.directions.pop()
         }
-        if (this.scatter_mode) {
+        if (this.mode === Ghost_mode.SCATTER) {
             if (this.directions.length != 0) {
                 return this.directions.pop()
             }
-            this.scatter_mode = false
+            this.mode = Ghost_mode.CHASE
         }
         this.directions = []
         var distance = this.bfs(posX, posY)
@@ -154,23 +161,26 @@ class Foreshadow_chase extends AI {
     constructor({ available_space, original_position }) {
         super({ available_space })
         this.original_position = original_position
-        this.scatter_mode = false
+        this.mode = Ghost_mode.CHASE
     }
 
     next_move(posX, posY) {
-        if (game_second % 30 == 0 && !this.scatter_mode) {
-            this.scatter_mode = true
+        if(this.mode === Ghost_mode.FRIGHTENED) {
+            //TODO
+        }
+        if (game_second % 30 == 0 && this.mode === Ghost_mode.CHASE) {
+            this.mode = Ghost_mode.SCATTER
             this.directions = []
             var distance = this.bfs(posX, posY)
             this.get_path(parseInt(this.original_position.x / SPRITE_SIZE), parseInt(this.original_position.y / SPRITE_SIZE), distance)
             if (this.directions.length == 0) return Direction.stationary
             return this.directions.pop()
         }
-        if (this.scatter_mode) {
+        if (this.mode === Ghost_mode.SCATTER) {
             if (this.directions.length != 0) {
                 return this.directions.pop()
             }
-            this.scatter_mode = false
+            this.mode = Ghost_mode.CHASE
         }
         this.directions = []
         var distance = this.bfs(posX, posY)
