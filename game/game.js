@@ -60,9 +60,9 @@ function init()
     })
 
     var ghost3 = new Ghost({
-        position: {x : 696,y : 552},
+        position: {x : 48,y : 240},
         velocity: {x : 0, y : GHOST_SPEED},
-        type: Ghost_type.red
+        type: Ghost_type.blue
     })
 
     var ghost4 = new Ghost({
@@ -70,7 +70,7 @@ function init()
         velocity: {x : 0, y : GHOST_SPEED},
         type: Ghost_type.pink
     })
-    ghosts = [ghost1, ghost2, ghost4]
+    ghosts = [ghost1, ghost2, ghost3, ghost4]
 
     draw_background()
     animate()

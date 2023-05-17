@@ -41,10 +41,12 @@ class Ghost {
                 this.ai = new Pac_chase({available_space: this.available_space, original_position: this.original_position})
                 break;
             case Ghost_type.orange:
-                this.ai = new Random_chase({available_space: this.available_space})
+                this.ai = new Pacrand_chase({available_space: this.available_space, original_position: this.original_position})
                 break;
             case Ghost_type.pink:
                 this.ai = new Foreshadow_chase({available_space: this.available_space, original_position: this.original_position})
+            case Ghost_type.blue:
+                this.ai = new Vector_chase({available_space: this.available_space, original_position: this.original_position})
         }
     }
 
