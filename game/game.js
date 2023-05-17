@@ -68,7 +68,7 @@ function init()
     var ghost4 = new Ghost({
         position: {x : 48,y : 552},
         velocity: {x : 0, y : GHOST_SPEED},
-        type: Ghost_type.red
+        type: Ghost_type.pink
     })
     ghosts = [ghost1, ghost2, ghost4]
 
