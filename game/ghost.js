@@ -9,8 +9,8 @@ class Ghost {
         this.frame_change = 0
         this.alive = true
         this.paused = 0
-        this.avaiable_space = new Array(NUMBER_OF_TILES)
-        for(var i = 0; i < NUMBER_OF_TILES; i++) this.avaiable_space[i] = new Array(NUMBER_OF_TILES).fill(0)
+        this.available_space = new Array(NUMBER_OF_TILES)
+        for(var i = 0; i < NUMBER_OF_TILES; i++) this.available_space[i] = new Array(NUMBER_OF_TILES).fill(0)
 
         this.set_space()
         this.set_ai()
