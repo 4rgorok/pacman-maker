@@ -7,8 +7,8 @@ class Ghost {
         this.animation_frame = 0
         this.number_of_frames = 2
         this.frame_change = 0
-        this.avaiable_space = new Array(NUMBER_OF_TILES)
-        for(var i = 0; i < NUMBER_OF_TILES; i++) this.avaiable_space[i] = new Array(NUMBER_OF_TILES).fill(0)
+        this.available_space = new Array(NUMBER_OF_TILES)
+        for(var i = 0; i < NUMBER_OF_TILES; i++) this.available_space[i] = new Array(NUMBER_OF_TILES).fill(0)
         this.set_space()
         this.set_ai()
     }
@@ -21,8 +21,8 @@ class Ghost {
         while(queue.length > 0)
         {
             var temp = queue.shift()
-            if(this.avaiable_space[temp.y][temp.x])continue
-            this.avaiable_space[temp.y][temp.x] = 1
+            if(this.available_space[temp.y][temp.x])continue
+            this.available_space[temp.y][temp.x] = 1
             if(temp.x > 0 && !is_wall(current_map[temp.y][temp.x - 1]))
                 queue.push({x:temp.x-1, y:temp.y})
             if(temp.x < NUMBER_OF_TILES - 1 && !is_wall(current_map[temp.y][temp.x + 1]))
@@ -38,10 +38,15 @@ class Ghost {
     {
         switch (this.ghost_type){
             case Ghost_type.red:
-                this.ai = new Pac_chase({avaiable_space: this.avaiable_space, original_position: this.original_position})
+                this.ai = new Pac_chase({available_space: this.available_space, original_position: this.original_position})
                 break;
             case Ghost_type.orange:
-                this.ai = new Random_chase({avaiable_space: this.avaiable_space})
+                this.ai = new Pacrand_chase({available_space: this.available_space, original_position: this.original_position})
+                break;
+            case Ghost_type.pink:
+                this.ai = new Foreshadow_chase({available_space: this.available_space, original_position: this.original_position})
+            case Ghost_type.blue:
+                this.ai = new Vector_chase({available_space: this.available_space, original_position: this.original_position})
         }
     }
 
