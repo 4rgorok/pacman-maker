@@ -17,7 +17,14 @@ const Sprites = {
     red_ghost:          10,
     pink_ghost:         11,
     blue_ghost:         12,
-    orange_ghost:       13
+    orange_ghost:       13,
+    cherry_powerup:     14,
+    strawberry_powerup: 15,
+    orange_powerup:     16,
+    grapes_powerup:     17,
+    galaxian_powerup:   18,
+    bell_powerup:       19,
+    key_powerup:        20
 }
 
 const Direction = {
