@@ -113,6 +113,20 @@ function get_sprite(tile_number)
             return {x: 6, y: 0}
         case Sprites.power_pellet:
             return {x: 0, y: 1}
+        case Sprites.strawberry_powerup:
+            return {x: 1, y: 1}
+        case Sprites.orange_powerup:
+            return {x: 2, y: 1}
+        case Sprites.bell_powerup:
+            return {x: 3, y: 1}
+        case Sprites.apple_powerup:
+            return {x: 4, y: 1}
+        case Sprites.grapes_powerup:
+            return {x: 5, y: 1}
+        case Sprites.galaxian_powerup:
+            return {x: 6, y: 1}
+        case Sprites.key_powerup:
+            return {x: 7, y: 1}
         case Sprites.empty:
             return {x: 7, y: 0}
         case Sprites.pac_man:

@@ -18,7 +18,7 @@ const Sprites = {
     pink_ghost:         11,
     blue_ghost:         12,
     orange_ghost:       13,
-    cherry_powerup:     14,
+    apple_powerup:      14,
     strawberry_powerup: 15,
     orange_powerup:     16,
     grapes_powerup:     17,
