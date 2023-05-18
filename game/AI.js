@@ -124,7 +124,7 @@ class Random_chase extends AI {
 
     next_move(posX, posY) {
         if (this.mode === Ghost_mode.FRIGHTENED) {
-            //TODO
+            // it should behave in the same way
         }
         if (this.directions.length == 0) {
             let x = Math.floor(Math.random() * NUMBER_OF_TILES)
@@ -149,7 +149,7 @@ class Pac_chase extends AI {
 
     next_move(posX, posY) {
         if (this.mode === Ghost_mode.FRIGHTENED) {
-            //TODO
+            return Random_chase.next_move(posX, posY)
         }
         if (game_second % 20 === 0 && this.mode === Ghost_mode.CHASE) {
             return this.scatter(posX, posY)
@@ -171,7 +171,7 @@ class Foreshadow_chase extends AI {
 
     next_move(posX, posY) {
         if (this.mode === Ghost_mode.FRIGHTENED) {
-            //TODO
+            return Random_chase.next_move(posX, posY)
         }
         if (game_second % 20 == 0 && this.mode === Ghost_mode.CHASE) {
             return this.scatter(posX, posY)
@@ -199,7 +199,7 @@ class Pacrand_chase extends AI {
 
     next_move(posX, posY) {
         if (this.mode === Ghost_mode.FRIGHTENED) {
-            //TODO
+            return Random_chase.next_move(posX, posY)
         }
         if (game_second % 20 == 0 && this.mode === Ghost_mode.CHASE) {
             return this.scatter(posX, posY)
@@ -237,7 +237,7 @@ class Vector_chase extends AI {
 
     next_move(posX, posY) {
         if (this.mode === Ghost_mode.FRIGHTENED) {
-            //TODO
+            return Random_chase.next_move(posX, posY)
         }
         if (game_second % 20 === 0 && this.mode === Ghost_mode.CHASE) {
             return this.scatter(posX, posY)

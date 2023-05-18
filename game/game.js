@@ -7,10 +7,15 @@ let number_of_dots = 0
 let game_frame = 0
 let game_second = 1
 let img = new Image();
+let pac_death_img = new Image();
 
 window.addEventListener("load", (event) => {
     img.src = './sprites_24.png';
+    pac_death_img.src = './pac_death.png'
     img.onload = function() {
+        init()
+    };
+    pac_death_img.onload = function() {
         init()
     };
 });

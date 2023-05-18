@@ -190,8 +190,6 @@ class Pacman {
                     else {
                         game_end = true
                         this.death_animation()
-                        if(alert("YOU LOST!!!")){}
-                        else    window.location.reload();
                     }
                 } else {
                     this.dots_eaten += 1000
@@ -250,7 +248,21 @@ class Pacman {
 
     death_animation()
     {
-        //TODO
+        let x = 0;
+        let y = 0;
+        let frameCount = 11;
+
+        c.clearRect(this.position.x, this.position.y, SPRITE_SIZE, SPRITE_SIZE);
+            setInterval(() => {
+                c.clearRect(this.position.x, this.position.y, SPRITE_SIZE, SPRITE_SIZE);
+                c.drawImage(pac_death_img, x, y, SPRITE_SIZE, SPRITE_SIZE, this.position.x, this.position.y, SPRITE_SIZE, SPRITE_SIZE);
+                x += 24;
+            }, 100);
+
+        setTimeout(() => {
+            if(alert("YOU LOST!!!")){}
+             else window.location.reload();
+            }, 110 * frameCount);
     }
 }
 
