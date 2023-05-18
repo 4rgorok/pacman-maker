@@ -256,7 +256,7 @@ class Pacman {
             setInterval(() => {
                 c.clearRect(this.position.x, this.position.y, SPRITE_SIZE, SPRITE_SIZE);
                 c.drawImage(pac_death_img, x, y, SPRITE_SIZE, SPRITE_SIZE, this.position.x, this.position.y, SPRITE_SIZE, SPRITE_SIZE);
-                x += 24;
+                x += SPRITE_SIZE;
             }, 100);
 
         setTimeout(() => {
