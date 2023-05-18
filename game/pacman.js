@@ -166,6 +166,7 @@ class Pacman {
                 if(alert("YOU WON!!!")){}
                 else    window.location.reload();
             }
+            
         }
     }
 
