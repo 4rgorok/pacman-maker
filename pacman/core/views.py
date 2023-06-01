@@ -19,11 +19,7 @@ class MyLoginView(LoginView):
     redirect_authenticated_user = True
     
     def get_success_url(self):
-<<<<<<< HEAD
-        return reverse_lazy('core:tasks') 
-=======
         return reverse_lazy('core:index') 
->>>>>>> 9de3cbcc473ac393be8134c79f72c50940c53d63
     
     def form_invalid(self, form):
         messages.error(self.request,'Invalid username or password')
@@ -32,7 +28,6 @@ class MyLoginView(LoginView):
 class SignUpView(CreateView):
     form_class = SignUpForm
     success_url = reverse_lazy('core:login')
-<<<<<<< HEAD
     template_name = 'registration/signup.html'
 
 from django.shortcuts import render, redirect
@@ -73,6 +68,3 @@ def like_map(request, map_id):
     else:
         map.approval.remove(request.user)
     return redirect('public_maps')
-=======
-    template_name = 'registration/signup.html'
->>>>>>> 9de3cbcc473ac393be8134c79f72c50940c53d63
