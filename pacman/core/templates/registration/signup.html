@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8"> 
+    <title>Strona logowania</title>
+</head>
+
+<h2>Sign Page</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Register</button>
+    <br><br>
+    <a href="{% url 'core:index' %}">Home</a>
+</form>
+
+</html>

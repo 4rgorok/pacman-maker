@@ -14,7 +14,7 @@
     <div class="wrapper">
         <div class="cell-top">
             <img class="profile-picture" src="{% static 'core/main_page/graphics/Pacman.png' %}" alt="Pacman Icon">
-            <button class="login-button">Log In</button>
+            <a href = "{% url 'core:login' %}" class="login-button">Log In</a>
         </div>
         <div class="cell-left">
             <div class="sprite-picture" alt="Pacman Icon" id="ghostStrong"></div>
