@@ -10,7 +10,7 @@ function animateSprite(who, startingPosition, direction, tileX, tileY) {
     const DUR2 = 25; // duration of Ghost texture changing cycle
 
     // TEXTURE ATLAS SETUP
-    const src = '../graphics/sprites.png';
+    const src = '/static/core/main_page/graphics/sprites.png';
     const tileSize = 24;
     const basePacmanAtlasX = 0 * tileSize;
     const basePacmanAtlasY = 7 * tileSize;

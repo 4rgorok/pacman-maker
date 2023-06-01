@@ -1,18 +1,19 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pl-PL">
 
 <head>
     <title>ProjectScheme</title>
-    <link rel="stylesheet" href="main-menu.css">
+    <link rel="stylesheet" href="{% static 'core/main_page/main-menu.css' %}">
     <meta charset="UTF-8">
 </head>
 
 <body>
     <noscript>Your browser does not support JavaScript!</noscript>
-    <script type="text/javascript" src="main-menu.js"></script>
+    <script type="text/javascript" src="{% static 'core/main_page/main-menu.js' %}"></script>
     <div class="wrapper">
         <div class="cell-top">
-            <img class="profile-picture" src="../graphics/Pacman.png" alt="Pacman Icon">
+            <img class="profile-picture" src="{% static 'core/main_page/graphics/Pacman.png' %}" alt="Pacman Icon">
             <button class="login-button">Log In</button>
         </div>
         <div class="cell-left">
@@ -31,9 +32,9 @@
 
         <div class="cell-list">
             <ul>
-                <li><button onclick="location.href = '../game/game.html';" class="main-menu-button">Quick Game</button></li>
+                <li><a href = "{% url 'core:game' %}" class="main-menu-button">Quick Game</a></li>
                 <li><button class="main-menu-button">Search Market</button></li>
-                <li><button onclick="location.href = '../generator/generator.html';" class="main-menu-button">Map Maker</button></li>
+                <li><a href = "{% url 'core:generator' %}" class="main-menu-button">Map Maker</a></li>
                 <li><button class="main-menu-button">Library</button></li>
                 <li><button class="main-menu-button">Statistics</button></li>
             </ul>
