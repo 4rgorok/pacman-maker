@@ -19,7 +19,7 @@ class MyLoginView(LoginView):
     redirect_authenticated_user = True
     
     def get_success_url(self):
-        return reverse_lazy('tasks') 
+        return reverse_lazy('core:index') 
     
     def form_invalid(self, form):
         messages.error(self.request,'Invalid username or password')
@@ -27,5 +27,5 @@ class MyLoginView(LoginView):
     
 class SignUpView(CreateView):
     form_class = SignUpForm
-    success_url = reverse_lazy('login')
+    success_url = reverse_lazy('core:login')
     template_name = 'registration/signup.html'
