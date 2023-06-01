@@ -1,12 +1,26 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl-PL">
 
 <head>
-    <meta charset="UTF-8"> 
-    <title>Strona logowania</title>
+    <title>Tasks</title>
+    <link rel="stylesheet" href="{% static 'core/main_page/main-menu.css' %}">
+    <meta charset="UTF-8">
+	<title>Strona logowania</title>
+	<style>
+        body {
+            color: white;
+        }
+    </style>
 </head>
 
-  <div class="center">
+<body>
+    <noscript>Your browser does not support JavaScript!</noscript>
+    <script type="text/javascript" src="{% static 'core/main_page/main-menu.js' %}"></script>
+
+    <div class="wrapper">
+
+        <div class="cell-list">
 	  <form method="post" class="card" novalidate>
 	  	{% csrf_token %}
 	    <h2 class="text-center">Log in to your account</h2>
@@ -23,5 +37,9 @@
 		<p class="text-center">Don't have a account? <a href="{% url 'core:signup' %}">Join Now</a></p>
 	</form>
 </div>
+        </div>
+    </div>
+
+</body>
 
 </html>

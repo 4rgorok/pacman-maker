@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pl-PL">
+
+<head>
+    <title>Tasks</title>
+    <link rel="stylesheet" href="{% static 'core/main_page/main-menu.css' %}">
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <noscript>Your browser does not support JavaScript!</noscript>
+    <script type="text/javascript" src="{% static 'core/main_page/main-menu.js' %}"></script>
+
+    <div class="wrapper">
+        <div class="cell-title">
+            <div class="title-text2">Menu</div>
+            <div class="title-text3">Menu</div>
+        </div>
+
+        <div class="cell-list">
+            <ul>
+                <li><a href="{% url 'core:public_maps' %}" class="main-menu-button">Public Maps</a></li>
+                <li><a href="{% url 'core:user_maps' %}" class="main-menu-button">All Maps</a></li>
+                <li><a href="{% url 'core:generator' %}" class="main-menu-button">Add Map</a></li>
+            </ul>
+        </div>
+    </div>
+
+</body>
+
+</html>
