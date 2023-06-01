@@ -14,7 +14,12 @@
     <div class="wrapper">
         <div class="cell-top">
             <img class="profile-picture" src="{% static 'core/main_page/graphics/Pacman.png' %}" alt="Pacman Icon">
+            {% if request.user.is_authenticated %}
+            <a href = "{% url 'core:logout' %}" class="login-button">Log Out</a>
+            {% else %}
             <a href = "{% url 'core:login' %}" class="login-button">Log In</a>
+            {% endif %}
+
         </div>
         <div class="cell-left">
             <div class="sprite-picture" alt="Pacman Icon" id="ghostStrong"></div>
