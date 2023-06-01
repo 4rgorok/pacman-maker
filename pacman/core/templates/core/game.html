@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'core/game/game.css' %}">
+    <script src="{% static 'core/game/constants.js' %}"></script>
+    <script src="{% static 'core/game/game.js' %}"></script>
+    <script src="{% static 'core/game/pacman.js' %}"></script>
+    <script src="{% static 'core/game/AI.js' %}"></script>
+    <script src="{% static 'core/game/ghost.js' %}"></script>
+    <script src="{% static 'core/game/mapa.js' %}"></script>
+    <title>Game</title>
+</head>
+<body>
+    <canvas id = "background"></canvas>
+    <canvas id = "front"></canvas>
+</body>
+</html>
