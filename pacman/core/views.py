@@ -58,7 +58,7 @@ def toggle_public(request, map_id):
     if map.creator == request.user:
         map.is_public = not map.is_public
         map.save()
-    return redirect('user_maps')
+    return redirect('core:user_maps')
 
 @login_required
 def like_map(request, map_id):
@@ -67,4 +67,16 @@ def like_map(request, map_id):
         map.approval.add(request.user)
     else:
         map.approval.remove(request.user)
-    return redirect('public_maps')
+    return redirect('core:public_maps')
+
+
+# def upload_file(request):
+#     if request.method == "POST":
+#         form = ModelFormWithFileField(request.POST, request.FILES)
+#         if form.is_valid():
+#             # file is saved
+#             form.save()
+#             return reverse_lazy('core:user_maps')
+#     else:
+#         form = ModelFormWithFileField()
+#     return render(request, "core/upload_map.html", {"form": form})

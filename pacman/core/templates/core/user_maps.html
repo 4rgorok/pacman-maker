@@ -17,10 +17,10 @@
         <div class="cell-list">
             {% for map in maps %}
                 <div>
-                    <h2>{{ map.name }}</h2>
-                    <p>Created on: {{ map.creation_date }}</p>
-                    <p>Likes: {{ map.approval.count }}</p>
-                    <a href="{% url 'toggle_public' map.id %}">
+                    <h2 class="title-text3">{{ map.name }}</h2>
+                    <p class="map-menu-text">Created on: {{ map.creation_date }}</p>
+                    <p class="map-menu-text">Likes: {{ map.approval.count }}</p>
+                    <a href="{% url 'core:toggle_public' map.id %}">
                         {% if map.user_is_creator %}
                             {% if map.is_public %}
                                 Unpublish

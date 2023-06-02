@@ -135,6 +135,15 @@ body {
     width: 70%;
 }
 
+.map-menu-text{
+    border-radius: 20px;
+    font-family: 'Pixel';
+    font-size: 1vw;
+    background-color: var(--button-color);
+    color: var(--text-color2);
+
+}
+
 ul {
     list-style: none;
 }
