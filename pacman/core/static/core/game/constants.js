@@ -2,6 +2,7 @@ const SPRITE_SIZE = 24
 const NUMBER_OF_TILES = 32
 const PAC_SPEED = 4
 const GHOST_SPEED = 2
+const TELEPORT_COOLDOWN_TIME = 3
 
 const Sprites = {
     pac_dots:           0,
@@ -24,7 +25,8 @@ const Sprites = {
     grapes_powerup:     17,
     galaxian_powerup:   18,
     bell_powerup:       19,
-    key_powerup:        20
+    key_powerup:        20,
+    teleport:           21
 }
 
 const Direction = {

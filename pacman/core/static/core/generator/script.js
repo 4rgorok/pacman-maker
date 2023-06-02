@@ -12,7 +12,8 @@ const Sprites = {
     red_ghost:          10,
     pink_ghost:         11,
     blue_ghost:         12,
-    orange_ghost:       13
+    orange_ghost:       13,
+    teleport:           21
 }
 const PositionsX = [6,
     0,
@@ -27,7 +28,8 @@ const PositionsX = [6,
     0,
     0,
     0,
-    0]
+    0,
+    7]
 
 const PositionsY = [0,
     1,
@@ -42,7 +44,8 @@ const PositionsY = [0,
     3,
     4,
     6,
-    5]
+    5,
+    0]
 /*const PositionsX = {
     pac_dots:           6,
     power_pellet:       0,
@@ -154,6 +157,19 @@ class Playfield {
                 document.body.append(element);
             }
         }
+
+        var x = document.createElement("INPUT");
+        x.setAttribute("id","filename");
+        x.setAttribute("type", "text");
+        x.setAttribute("value", "map_name");
+        x.style.position = "absolute"
+        x.style.left = "40px"
+        x.style.top = "450px"
+        x.style.color = "white"
+        x.style.fontFamily = "Pixel"
+        x.style.fontSize = "24px"
+        x.style.width =  "400px"
+        document.body.appendChild(x);
     };
 
     initRight() {
@@ -792,6 +808,9 @@ class Playfield {
                             case 6:
                                 numer = Sprites.pac_dots
                                 break;
+                            case 7:
+                                numer = Sprites.teleport
+                                break;
                         }
                     }
                     temp[i2] = numer
@@ -808,7 +827,8 @@ class Playfield {
         //this.parseFormat(this.zapis[this.zapisLvl])
         var data=JSON.stringify(this.parseFormat(this.zapis[this.zapisLvl]))
         console.log(data)
-        var filename="mapa"
+        console.log(document.getElementById("filename"))
+        var filename=document.getElementById("filename").value
         var type="application/json;charset=utf-16"
         var file = new Blob([data], {type: type});
         if (window.navigator.msSaveOrOpenBlob) // IE10+
@@ -830,6 +850,10 @@ class Playfield {
     {
         let pos = ""
         pos = "left "+ (-PositionsX[number]*this.sprite_size) + "px top " + (-PositionsY[number]*this.sprite_size) + "px"
+        if(number == 21)
+        {
+            pos = "left "+ (-7*this.sprite_size) + "px top " + (0*this.sprite_size) + "px"
+        }
         return pos
     }
     OtworzPlik()
