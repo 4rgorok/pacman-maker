@@ -1,6 +1,7 @@
 class Pacman {
     constructor({position, velocity}){
         this.position = position
+        this.initial_position = {x: position.x, y: position.y}
         this.velocity = velocity
         this.speed = PAC_SPEED
         this.animation_frame = 0
@@ -43,6 +44,8 @@ class Pacman {
     {
         this.draw()
         this.check_dots()
+        this.check_powerup()
+        this.check_powerups()
         this.check_ghost_collision()
         if(this.check_colision())
         {
@@ -51,6 +54,12 @@ class Pacman {
         }
         else
         {
+            if(this.position.y % SPRITE_SIZE == 0 && this.position.x % SPRITE_SIZE == 0)
+            {
+                //console.log("xdd")
+                if(this.velocity.x > 0)this.velocity.x = this.speed
+                if(this.velocity.y > 0)this.velocity.y = this.speed
+            }
             if(this.direction_change && this.position.y % SPRITE_SIZE == 0 && this.position.x % SPRITE_SIZE == 0)
             {
                 this.direction_change = false
@@ -63,6 +72,10 @@ class Pacman {
                     this.velocity.x = tempX
                     this.velocity.y = tempY
                 }
+                
+            }
+            else if (this.position.y % SPRITE_SIZE == 0 && this.position.x % SPRITE_SIZE == 0){
+                this.check_teleport(this.position.x / SPRITE_SIZE, this.position.y / SPRITE_SIZE)
             }
             if(!this.check_colision())
             {
@@ -92,7 +105,24 @@ class Pacman {
 
         return Direction.stationary
     }
-
+    check_teleport(x, y)
+    {
+        if(teleports.length == 0)return 
+        if(teleport_cooldown > 0)return
+        //console.log(x, y, teleports[0])
+        if(teleports[0][0] == x && teleports[0][1]== y)
+        {
+            this.position.x = teleports[1][0] * SPRITE_SIZE
+            this.position.y = teleports[1][1] * SPRITE_SIZE
+            teleport_cooldown = TELEPORT_COOLDOWN_TIME
+        }
+        else if (teleports[1][0] == x && teleports[1][1]== y)
+        {
+            this.position.x = teleports[0][0] * SPRITE_SIZE
+            this.position.y = teleports[0][1] * SPRITE_SIZE
+            teleport_cooldown = TELEPORT_COOLDOWN_TIME
+        }
+    }
     
     check_colision()
     {
@@ -169,6 +199,25 @@ class Pacman {
             
         }
     }
+    check_powerups()
+    {
+        if(!(this.position.x % SPRITE_SIZE == 0 && this.position.y % SPRITE_SIZE == 0))return false
+        var posX = this.position.x / SPRITE_SIZE
+        var posY = this.position.y / SPRITE_SIZE
+        let current = current_map[posY][posX]
+        if(current == Sprites.key_powerup ||
+            current == Sprites.bell_powerup ||
+            current == Sprites.apple_powerup ||
+            current == Sprites.grapes_powerup ||
+            current == Sprites.orange_powerup ||
+            current == Sprites.galaxian_powerup ||
+            current == Sprites.strawberry_powerup
+            )
+        {
+            backgrund_ctx.fillRect(posX * SPRITE_SIZE, posY * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE)
+            current_map[posY][posX] = Sprites.empty
+        }
+    }
 
     check_ghost_collision()
     {
@@ -183,7 +232,7 @@ class Pacman {
             {
                 if (this.ghosts_eating_time_left == 0) {
                     if (this.lives) {
-                        this.position = {x : 240,y : 240},
+                        this.position = {x : this.initial_position.x,y : this.initial_position.y},
                         this.velocity = {x : 0, y : 0}
                         this.lives--
                     }
@@ -192,7 +241,7 @@ class Pacman {
                         this.death_animation()
                     }
                 } else {
-                    this.dots_eaten += 1000
+                    //this.dots_eaten += 1000
                     ghost.alive = false
                 }
             }
@@ -200,48 +249,55 @@ class Pacman {
     }
 
     check_powerup() {
+        if(!(this.position.x % SPRITE_SIZE == 0 && this.position.y % SPRITE_SIZE == 0))return false
         var pacX = parseInt(this.position.x / SPRITE_SIZE)
         var pacY = parseInt(this.position.y / SPRITE_SIZE)
         var field_content = current_map[pacY][pacX]
+        //console.log(field_content)
         switch (field_content) {
             case Sprites.power_pellet:
-                this.ghosts_eating_time_left += 1000
-                this.dots_eaten += 100
+                //this.ghosts_eating_time_left += 1000
+                //this.dots_eaten += 100
                 break;
             case Sprites.strawberry_powerup: // dodatkowe zycie
-                this.dots_eaten += 200
+                //this.dots_eaten += 200
                 this.lives++
+                console.log("lives "+this.lives)
                 break;
             case Sprites.orange_powerup: // przyspieszenie
-                this.dots_eaten += 400
-                this.speedup_time_left += 1000
+                //this.dots_eaten += 400
+                //console.log("xdddddddd")
+                this.speedup_time_left = 60 * 5
+                this.speed = PAC_SPEED * 2
                 break;
             case Sprites.apple_powerup: // zwolnienie duchow
-                this.dots_eaten += 800
+                //this.dots_eaten += 800
                 ghosts.forEach(ghost => {
                     ghost.paused += 120
                 });
                 break;
             case Sprites.grapes_powerup: // stale przyspieszenie
-                this.dots_eaten += 2400
-                this.speed ++
+                //this.dots_eaten += 2400
+                //this.speed ++
+                break;
             case Sprites.galaxian_powerup: // teleportacja  duchow do orginalnej pozycji
-                this.dots_eaten += 4000
+                console.log("xdd")
+                //this.dots_eaten += 4000
                 ghosts.forEach(ghost => {
                     ghost.position = ghost.original_position
                 });
                 break;
             case Sprites.bell_powerup: // przedluzenie czasu bonusu
-                this.dots_eaten += 1000
-                this.ghosts_eating_time_left *= 2
-                this.speedup_time_left *= 2
-                this.walls_passing_time_left *= 2
-                ghosts.forEach(ghost => {
-                    ghost.paused *= 2
-                });
+                //this.dots_eaten += 1000
+                //this.ghosts_eating_time_left *= 2
+                //this.speedup_time_left *= 2
+                //this.walls_passing_time_left *= 2
+                //ghosts.forEach(ghost => {
+                //    ghost.paused *= 2
+                //});
             case Sprites.key_powerup: // przelatywanie przez sciany
-                this.dots_eaten += 1600
-                this.walls_passing_time_left += 1000
+                //this.dots_eaten += 1600
+                //this.walls_passing_time_left += 1000
                 break;
         }
     }

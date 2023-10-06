@@ -14,7 +14,15 @@
     <title>Game</title>
 </head>
 <body>
+    <div class="cell-list" id = "lista">
+        <ul>
+            <li><button id = "defaultmap" class="main-menu-button">Default game</button></li>
+            <li><button id = "loadmap"class="main-menu-button">Load map</button></li>
+            <li><button onclick="location.href = '../main_page/main-menu.html';" class="main-menu-button">Back to menu</button></li>
+        </ul>
+    </div>
     <canvas id = "background"></canvas>
     <canvas id = "front"></canvas>
+    <input type="file" id="input" hidden="true" accept="application/json">
 </body>
 </html>
